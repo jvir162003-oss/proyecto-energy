@@ -1,4 +1,4 @@
-const { authed, missingConfig, clean } = require('./_lib');
+const { authed, missingConfig, clean, hasBlob, readJson } = require('./_lib');
 
 const KEYS = [
   'hero_a', 'hero_b', 'hero_lead', 'marca_lead',
@@ -10,12 +10,9 @@ module.exports = async (req, res) => {
   try {
     if (req.method === 'GET') {
       res.setHeader('Cache-Control', 'public, max-age=30, s-maxage=30');
-      if (!process.env.BLOB_READ_WRITE_TOKEN) return res.status(200).json({});
+      if (!hasBlob()) return res.status(200).json({});
       const blob = await import('@vercel/blob');
-      const { blobs } = await blob.list({ prefix: 'content.json', limit: 1 });
-      if (!blobs.length) return res.status(200).json({});
-      const r = await fetch(blobs[0].url + '?t=' + Date.now());
-      return res.status(200).json(await r.json());
+      return res.status(200).json((await readJson(blob, 'content.json')) || {});
     }
 
     res.setHeader('Cache-Control', 'no-store');
@@ -31,7 +28,7 @@ module.exports = async (req, res) => {
       for (const k of KEYS) if (typeof b[k] === 'string') out[k] = clean(b[k], 1500);
       const blob = await import('@vercel/blob');
       await blob.put('content.json', JSON.stringify(out), {
-        access: 'public',
+        access: 'private',
         contentType: 'application/json',
         addRandomSuffix: false,
         allowOverwrite: true,

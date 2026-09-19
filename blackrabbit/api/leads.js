@@ -1,4 +1,4 @@
-const { authed, missingConfig, clean } = require('./_lib');
+const { authed, missingConfig, clean, readJson } = require('./_lib');
 
 const isBlobUrl = (u) => {
   try {
@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
       }
       const key = `leads/${Date.now()}.json`;
       await blob.put(key, JSON.stringify(lead), {
-        access: 'public',
+        access: 'private',
         contentType: 'application/json',
         addRandomSuffix: true,
       });
@@ -55,9 +55,8 @@ module.exports = async (req, res) => {
       const rows = await Promise.all(
         blobs.map(async (x) => {
           try {
-            const r = await fetch(x.url + '?t=' + Date.now());
-            const j = await r.json();
-            return { ...j, _url: x.url };
+            const j = await readJson(blob, x.pathname);
+            return j ? { ...j, _url: x.url } : null;
           } catch (e) {
             return null;
           }
