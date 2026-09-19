@@ -43,7 +43,7 @@ const redact = (t) =>
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'method' });
-  const key = process.env.GEMINI_API_KEY;
+  const key = process.env.GEMINI_API_KEY || process.env.geminiapi;
   if (!key) return res.status(503).json({ error: 'not_configured' });
 
   try {
