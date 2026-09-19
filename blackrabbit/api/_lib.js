@@ -8,7 +8,7 @@ function safeEq(a, b) {
 }
 
 function authed(req) {
-  const pass = process.env.ADMIN_PASSWORD;
+  const pass = process.env.ADMIN_PASSWORD || process.env.AdminPassword || process.env.ADMINPASSWORD;
   const sent = req.headers['x-admin-password'];
   return Boolean(pass) && Boolean(sent) && safeEq(sent, pass);
 }
@@ -29,7 +29,7 @@ async function readJson(blob, pathname) {
 function missingConfig(needAdmin) {
   const m = [];
   if (!hasBlob()) m.push('BLOB_STORE_ID');
-  if (needAdmin && !process.env.ADMIN_PASSWORD) m.push('ADMIN_PASSWORD');
+  if (needAdmin && !(process.env.ADMIN_PASSWORD || process.env.AdminPassword || process.env.ADMINPASSWORD)) m.push('ADMIN_PASSWORD');
   return m;
 }
 
