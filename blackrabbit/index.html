@@ -223,6 +223,52 @@ details.ing li b{display:block;color:var(--text);font-weight:600}
 .chat form button{border:0;background:var(--accent);color:#0a0a0a;font-family:var(--util);font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:0 18px;cursor:pointer}
 @media(max-width:520px){.chat{right:8px;width:calc(100vw - 16px);bottom:calc(76px + env(safe-area-inset-bottom,0px))}.chat-btn span{display:none}.chat-btn{width:52px;padding:0;justify-content:center}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* --- v2 --- */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+.cmp{width:100%;border-collapse:collapse;border:1px solid var(--line);background:var(--surface);font-size:15px}
+.cmp th,.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.cmp thead th{font-family:var(--util);letter-spacing:.16em;text-transform:uppercase;font-size:14px;color:var(--muted);font-weight:600}
+.cmp thead th.br,.cmp td.br{background:rgba(255,107,26,.08);color:var(--text)}
+.cmp thead th.br{color:var(--accent)}
+.cmp td.br{font-weight:600}
+.cmp td{color:var(--muted)}
+.cmp tbody th{font-weight:600;color:var(--text)}
+.cmpwrap{overflow-x:auto}
+.cmp-note{margin:14px 0 0;font-size:13px;color:var(--dim)}
+.pq{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pq article{border:1px solid var(--line);background:var(--surface);padding:28px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .2s}
+.pq article:hover{border-color:var(--accent);transform:translateY(-3px)}
+.pq .n{font-family:var(--util);font-size:44px;font-weight:700;line-height:1;color:var(--accent)}
+.pq h3{font-size:17px}
+.pq p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.pq a.more{font-family:var(--util);letter-spacing:.18em;text-transform:uppercase;font-size:14px;color:var(--accent)}
+@media(max-width:900px){.pq{grid-template-columns:1fr}}
+.quiz{border:1px solid var(--line);background:linear-gradient(135deg,var(--surface),var(--surface-2));padding:clamp(24px,4vw,44px)}
+.quiz h3{font-size:clamp(18px,2.2vw,26px);margin:10px 0 22px}
+.qopts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.qopts button{font:inherit;text-align:left;color:var(--text);background:var(--ground);border:1px solid #30343b;padding:16px 18px;cursor:pointer;min-height:56px;transition:border-color .2s,background .2s}
+.qopts button:hover,.qopts button:focus-visible{border-color:var(--accent);background:#15110d}
+.qres{display:none;gap:22px;align-items:center;margin-top:8px}
+.qres.on{display:flex}
+.qres img{width:110px;border:1px solid var(--line)}
+.qres h4{font-size:22px;margin-bottom:6px}
+.qres p{margin:0 0 14px;color:var(--muted);max-width:52ch}
+.qres .row{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:600px){.qopts{grid-template-columns:1fr}.qres.on{flex-direction:column;align-items:flex-start}}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);counter-reset:s}
+.steps div{padding:26px 24px;border-left:1px solid var(--line);background:var(--surface);counter-increment:s}
+.steps div:first-child{border-left:0}
+.steps div::before{content:"0" counter(s);font-family:var(--util);font-weight:700;font-size:40px;color:var(--accent);display:block;line-height:1;margin-bottom:12px}
+.steps h3{font-size:16px;margin-bottom:8px}
+.steps p{margin:0;color:var(--muted);font-size:15px}
+@media(max-width:800px){.steps{grid-template-columns:1fr}.steps div{border-left:0;border-top:1px solid var(--line)}.steps div:first-child{border-top:0}}
+.buyer{border:1px solid var(--accent);background:radial-gradient(circle at 90% 0,rgba(255,107,26,.16),transparent 60%),var(--surface);padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:center}
+.buyer h2{font-size:clamp(22px,3.2vw,38px);margin:12px 0 14px}
+.buyer p{margin:0;color:var(--muted);max-width:52ch}
+.buyer .acts{display:flex;flex-direction:column;gap:12px}
+@media(max-width:800px){.buyer{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -233,7 +279,8 @@ details.ing li b{display:block;color:var(--text);font-weight:600}
     <ul id="menu">
       <li><a href="#marca">La marca</a></li>
       <li><a href="#productos">Productos</a></li>
-      <li><a href="#activaciones">Activaciones</a></li>
+      <li><a href="#paraquien">Para quién</a></li>
+      <li><a href="#compradores">Compradores</a></li>
       <li><a href="#preguntas">Preguntas</a></li>
       <li><a href="#tu-evento">Tu evento</a></li>
     </ul>
@@ -249,7 +296,7 @@ details.ing li b{display:block;color:var(--text);font-weight:600}
     <div class="wrap">
       <div>
         <span class="eyebrow">Hidratación y bienestar · 355 mL</span>
-        <h1><span data-k="hero_a">Hidratación real.</span><br><em data-k="hero_b">Más mañanas.</em></h1>
+        <h1><span data-k="hero_a">Hidrátate. Recupérate.</span><br><em data-k="hero_b">Sigue.</em></h1>
         <p class="lead" data-k="hero_lead">Una bebida de hidratación y bienestar para quienes entrenan, compiten y quieren seguir mañana. Cero azúcar, sin cafeína, con electrolitos y vitaminas.</p>
         <div class="cta">
           <a class="btn" href="#productos">Ver productos</a>
@@ -304,6 +351,60 @@ details.ing li b{display:block;color:var(--text);font-weight:600}
         <div><span class="big">0 mg</span><h3>Sin cafeína</h3><p>Sirve para entrenar en la tarde, para los niños del club y para quien no la tolera.</p></div>
         <div><span class="big">Na · K</span><h3>Electrolitos</h3><p>Sodio y potasio para reponer lo que se pierde al sudar, más magnesio en Recover.</p></div>
         <div><span class="big">4</span><h3>Sabores con identidad</h3><p>Maqui y frambuesa, mango y naranja, limón y menta. Fruta que se reconoce.</p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="comparar">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="eyebrow">Comparación</span><h2>Menos de lo que<br>no necesitas</h2></div>
+        <p class="lead">Una referencia rápida frente a las bebidas que más se consumen antes y después de entrenar.</p>
+      </div>
+      <div class="cmpwrap rv"><table class="cmp">
+        <thead><tr><th></th><th class="br">Black Rabbit</th><th>Bebida energética típica</th><th>Bebida deportiva típica</th></tr></thead>
+        <tbody>
+          <tr><th>Azúcar</th><td class="br">0 g</td><td>Suele llevar, o edulcorantes</td><td>Suele llevar</td></tr>
+          <tr><th>Cafeína</th><td class="br">0 mg</td><td>Sí, en dosis altas</td><td>Normalmente no</td></tr>
+          <tr><th>Electrolitos</th><td class="br">Sodio y potasio</td><td>Pocos o ninguno</td><td>Sí</td></tr>
+          <tr><th>Vitaminas y minerales</th><td class="br">Según sabor</td><td>Algunas vitaminas B</td><td>Rara vez</td></tr>
+          <tr><th>Para tomar a cualquier hora</th><td class="br">Sí</td><td>No recomendable de noche</td><td>Sí</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cmp-note">Referencia general de categorías; la composición varía según cada marca. Datos de Black Rabbit sujetos a la formulación final con el laboratorio.</p>
+    </div>
+  </section>
+
+  <section id="paraquien">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="eyebrow">Para quién es</span><h2>Una bebida,<br>tres mundos</h2></div>
+        <p class="lead">Black Rabbit está pensada para quien se mueve: en la cancha, en la oficina o en un evento.</p>
+      </div>
+      <div class="pq">
+        <article class="rv"><span class="n">01</span><h3>Deportistas y clubes</h3><p>Hidratación con electrolitos para entrenar y competir, sin azúcar ni cafeína. Sirve para adultos y para las series menores.</p><a class="more" href="#sabor">Encuentra tu sabor →</a></article>
+        <article class="rv"><span class="n">02</span><h3>Empresas y oficinas</h3><p>Una opción distinta a las bebidas azucaradas para tu equipo, con sabores que se reconocen y una lata que se ve bien.</p><a class="more" href="#paquetes">Ver formatos →</a></article>
+        <article class="rv"><span class="n">03</span><h3>Eventos y festivales</h3><p>Stand, degustación y entrega del producto. Nos encargamos de que tu público pruebe Black Rabbit.</p><a class="more" href="#tu-evento">Cotizar evento →</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="sabor">
+    <div class="wrap">
+      <div class="quiz rv">
+        <span class="eyebrow">Recomendador de sabor</span>
+        <h3 id="q-title">¿Para qué momento la quieres?</h3>
+        <div class="qopts" id="q-opts">
+          <button type="button" data-r="hydrate">Antes o durante el entrenamiento</button>
+          <button type="button" data-r="recover">Después de entrenar o de un esfuerzo largo</button>
+          <button type="button" data-r="focus">Para estudiar o trabajar concentrado</button>
+          <button type="button" data-r="defend">Para cuidarme en épocas de frío o cansancio</button>
+        </div>
+        <div class="qres" id="q-res" aria-live="polite">
+          <img id="q-img" src="" alt="">
+          <div><h4 id="q-name"></h4><p id="q-why"></p><div class="row"><a class="btn" href="#productos">Ver ingredientes</a><button class="btn ghost" type="button" id="q-again">Volver a elegir</button></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -371,6 +472,37 @@ details.ing li b{display:block;color:var(--text);font-weight:600}
     </div>
   </section>
 
+
+  <section id="proceso">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="eyebrow">Cómo trabajamos</span><h2>De la idea<br>a la lata</h2></div>
+        <p class="lead">Un proceso simple para que sepas qué esperar desde el primer mensaje.</p>
+      </div>
+      <div class="steps rv">
+        <div><h3>Cuéntanos tu caso</h3><p>Evento, club, empresa o local. Por el formulario o por WhatsApp.</p></div>
+        <div><h3>Recibe tu propuesta</h3><p>Formato, sabores y cantidades a medida de lo que necesitas.</p></div>
+        <div><h3>Coordinamos la entrega</h3><p>Acordamos fechas y despacho según tu ciudad.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="compradores">
+    <div class="wrap">
+      <div class="buyer rv">
+        <div>
+          <span class="eyebrow">Para compradores y distribuidores</span>
+          <h2>Ficha de producto<br>de una página</h2>
+          <p>Sabores, formato y especificaciones en un PDF para compartir con tu equipo de compras. También te enviamos muestras para evaluar.</p>
+        </div>
+        <div class="acts">
+          <a class="btn" href="/ficha-black-rabbit.pdf" download>Descargar ficha PDF</a>
+          <a class="btn ghost" href="#tu-evento" data-tipo="Muestras para compradores">Pedir muestras</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="preguntas" class="productos">
     <div class="wrap">
       <div class="head">
@@ -406,7 +538,7 @@ details.ing li b{display:block;color:var(--text);font-weight:600}
         <div><label for="f-tel">Teléfono</label><input id="f-tel" name="telefono" type="tel" autocomplete="tel" maxlength="40" placeholder="+56 9 ..."></div>
         <div><label for="f-tipo">Tipo de evento</label>
           <select id="f-tipo" name="tipo">
-            <option>Degustación</option><option>Stand en evento</option><option>Abastecimiento regular</option><option>Carrera o trail</option><option>Torneo o liga</option><option>Festival</option><option>Gimnasio o box</option><option>Otro</option>
+            <option>Degustación</option><option>Stand en evento</option><option>Abastecimiento regular</option><option>Muestras para compradores</option><option>Carrera o trail</option><option>Torneo o liga</option><option>Festival</option><option>Gimnasio o box</option><option>Otro</option>
           </select></div>
         <div><label for="f-fecha">Fecha aproximada</label><input id="f-fecha" name="fecha" type="date"></div>
         <div><label for="f-ciudad">Ciudad</label><input id="f-ciudad" name="ciudad" autocomplete="address-level2" maxlength="100" placeholder="Ej: Chillán"></div>
@@ -592,6 +724,31 @@ details.ing li b{display:block;color:var(--text);font-weight:600}
   document.getElementById('chat-x').addEventListener('click',function(){toggle(false);});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&chat.classList.contains('open'))toggle(false);});
   cform.addEventListener('submit',function(e){e.preventDefault();var v=cin.value.trim();if(!v)return;add('me',v);cin.value='';answer(v);});
+})();
+
+(function(){
+  document.documentElement.classList.add('js');
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    els.forEach(function(e){io.observe(e);});
+  }else{els.forEach(function(e){e.classList.add('in');});}
+  var R={
+    hydrate:['Hydrate · Tropical','Sodio, potasio y vitamina C para reponer lo que pierdes al sudar. Va bien antes y durante el esfuerzo.','hydrate'],
+    recover:['Recover · Mango y naranja','Magnesio, vitamina B12 y ácido fólico para después del esfuerzo.','recover'],
+    focus:['Focus · Limón y menta','L-teanina y vitaminas B6 y B12. Concentración y calma, sin cafeína.','focus'],
+    defend:['Defend · Maqui y frambuesa','Vitaminas C y D y zinc para acompañar tus defensas.','defend']
+  };
+  var opts=document.getElementById('q-opts'),res=document.getElementById('q-res'),ttl=document.getElementById('q-title');
+  if(opts){
+    opts.addEventListener('click',function(ev){
+      var b=ev.target.closest('button');if(!b)return;var r=R[b.getAttribute('data-r')];
+      document.getElementById('q-name').textContent=r[0];document.getElementById('q-why').textContent=r[1];
+      var im=document.getElementById('q-img');var pi=document.querySelector('.prod.'+r[2]+' img');im.src=pi?pi.src:'';im.alt='Lata '+r[0];
+      opts.style.display='none';ttl.textContent='Tu sabor recomendado';res.classList.add('on');
+    });
+    document.getElementById('q-again').addEventListener('click',function(){res.classList.remove('on');opts.style.display='';ttl.textContent='¿Para qué momento la quieres?';});
+  }
 })();
 </script>
 </body>
