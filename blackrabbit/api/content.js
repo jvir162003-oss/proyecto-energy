@@ -2,7 +2,7 @@ const { authed, missingConfig, clean } = require('./_lib');
 
 const KEYS = [
   'hero_a', 'hero_b', 'hero_lead', 'marca_lead',
-  'prod_zero', 'prod_recover', 'prod_hydrate', 'prod_awake',
+  'prod_hydrate', 'prod_recover', 'prod_defend', 'prod_focus',
   'cta_title', 'cta_text', 'email', 'whatsapp', 'instagram',
 ];
 
