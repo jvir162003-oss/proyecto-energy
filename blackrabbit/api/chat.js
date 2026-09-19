@@ -66,7 +66,8 @@ module.exports = async (req, res) => {
       .filter((m) => m.text);
     if (!msgs.length || msgs[msgs.length - 1].role !== 'user') return res.status(400).json({ error: 'invalid' });
 
-    const ck = msgs[msgs.length - 1].text.toLowerCase();
+    const en = b.lang === 'en';
+    const ck = (en ? 'en|' : 'es|') + msgs[msgs.length - 1].text.toLowerCase();
     if (msgs.length === 1 && cache.has(ck)) return res.status(200).json(cache.get(ck));
 
     dayCount++;
@@ -74,7 +75,7 @@ module.exports = async (req, res) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
       body: JSON.stringify({
-        system_instruction: { parts: [{ text: SYSTEM }] },
+        system_instruction: { parts: [{ text: en ? SYSTEM + '\n\nIMPORTANT: the visitor uses English. Answer in clear, friendly English (max 3 short sentences), following all the same rules. If you do not know, answer exactly: NO_SE' : SYSTEM }] },
         contents: msgs.map((m) => ({ role: m.role, parts: [{ text: m.text }] })),
         generationConfig: { maxOutputTokens: 220, temperature: 0.2 },
       }),
